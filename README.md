@@ -57,5 +57,4 @@ https://unsplash.com/
         >flask run
     - Windows
         >set FLASK_APP=flask_app  
-        >flask run"# ShutterDiary" 
-"# ShutterDiary" 
+        >flask run
