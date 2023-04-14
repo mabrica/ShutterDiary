@@ -32,6 +32,7 @@ https://unsplash.com/
 
 - JavaScript
     - JQuery
+    - jquery-pwd-measure
 
 - CSS
     - Bootstrap
