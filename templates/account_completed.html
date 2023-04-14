@@ -1,0 +1,53 @@
+<!---------------------------------
+　アカウント情報更新完了画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+
+{% if completed == "email" %}
+  <h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-envelope me-2"></i>メールアドレスの変更</h1>
+{% elif completed == 'password' %}
+  <h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-key me-2"></i>パスワードの変更</h1>
+{% elif completed == 'avatar' %}
+  <h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-person-fill me-2"></i>アバターの登録・変更</h1>
+{% elif completed == 'profile' %}
+  <h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-card-text me-2"></i>プロフィールの変更</h1>
+{% elif completed == 'delete' %}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-door-open me-2"></i>退会（アカウントの削除）</h1>
+{% endif %}
+
+<div class="container g-5 pt-5">
+  <div>
+    {% if completed == "email" %}
+      <p class="text-center mt-5">
+        <i class="bi bi-check-circle fs-1"></i><br>
+        {{ current_user.username }}さんのメールアドレスが更新されました。
+      </p>
+    {% elif completed == 'password' %}
+      <p class="text-center mt-5">
+        <i class="bi bi-check-circle fs-1"></i><br>
+        {{ current_user.username }}さんのパスワードが更新されました。
+      </p>
+    {% elif completed == 'avatar' %}
+      <p class="text-center mt-5">
+        <i class="bi bi-check-circle fs-1"></i><br>
+        {{ current_user.username }}さんのアバターが更新されました。
+      </p>
+    {% elif completed == 'profile' %}
+      <p class="text-center mt-5">
+        <i class="bi bi-check-circle fs-1"></i><br>
+        {{ current_user.username }}さんのプロフィールが更新されました。
+      </p>
+    {% elif completed == 'delete' %}
+      <p class="text-center mt-5">
+        <i class="bi bi-balloon-heart fs-1"></i><br>
+        退会（アカウントの削除）が完了しました。<br>
+        これまでのご利用ありがとうございました。
+      </p>
+    {% endif %}
+
+    <p class="text-center mt-5"><a class="btn btn-sd-secondary" href="{{url_for('index')}}" role="button">TOPページに戻る</a></p>
+  </div>
+</div>
+{%endblock%}

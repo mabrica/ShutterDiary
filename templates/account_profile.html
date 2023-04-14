@@ -1,0 +1,38 @@
+<!---------------------------------
+　プロフィール変更画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-card-text me-2"></i>プロフィールの変更</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-6">
+
+      <div class="text-center mt-3 mb-5">
+        <p class="d-inline-block text-start fs-6 text-sd-secondary">
+          このページではプロフィールの登録・変更ができます。<br class="d-none d-md-inline">
+          個人情報は記載しないようにしてください。
+        </p>
+      </div>
+
+      <form action="/account/profile" method="post" class="needs-validation" novalidate>
+
+        <div class="mb-5">
+          <label for="profile-textarea" class="form-label">プロフィール<small id="profile-count"></small></label>
+          <textarea name="profile" class="form-control {{is_valid['profile']}}" id="profile-textarea" rows="4" placeholder="">{{profile}}</textarea>
+          {% if exceeds_text_limit['profile'] %}
+            <div class="invalid-feedback">本文は{{exceeds_text_limit['profile']}}文字までです</div>
+          {% endif %}
+        </div>
+
+        <div class="text-center"><button class="btn btn-sd-secondary" type="submit">変更を保存する</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+{%block script%}
+<script src="{{url_for('static', filename='js/profile.js')}}"></script>
+{%endblock%}

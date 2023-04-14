@@ -1,0 +1,149 @@
+<!---------------------------------
+　記事作成確認画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+
+{%block content%}
+
+<!-- 投稿ユーザー情報 -->
+<div class="bg-sd-secondary w-100">
+  <div class="container">
+    <div class="row justify-content-center py-3">
+      <div class="col col-lg-6 d-flex">
+        <div class="me-4">
+          {% if avatar %}
+            <div class="avatar-circle"><a href="{{ url_for('user', user_id=poster_id) }}"><img src="{{ avatar }}" width="100" height="100"></a></div>
+          {% else %}
+            <div class="avatar-circle avatar-placeholder"></div>
+          {% endif %}
+        </div>
+        <div class="flex-grow-1" id="poster-profile">
+          <p class="fs-3 text-break"><a href="{{ url_for('user', user_id=poster_id) }}" class="text-sd-light">{{ poster }}</a></p>
+          {% if profile %}
+            <p clsas="fs-1 text-sd-dark text-break mb-0">{{ profile }}</p>
+          {% else %}
+            <p clsas="fs-1 text-sd-dark text-break mb-0">プロフィールはありません</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- メイン部分 -->
+<div class="container mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-6 text-center">
+
+      {% if is_private %}
+        <!-- プライベートモードの場合のみ表示 -->
+        <div>
+          <p class="text-center mb-4">
+            <i class="bi bi-lock-fill fs-1"></i><br>
+            この記事は現在プライベートモードに設定されています。<br>
+            あなた以外のユーザーは閲覧できません。
+          </p>
+        </div>
+      {% endif %}
+
+      {% if poster_id == current_user.id %}
+        <!-- 自分の記事の場合のみ表示 -->
+        <p class="text-center mb-5"><a class="btn btn-sd-secondary" href="{{ url_for('edit', post_id=post_id) }}" role="button"><i class="bi bi-eraser"></i> 記事を編集する</a></p>
+      {% endif %}
+
+      <!-- 入力情報表示 -->
+      <div class="article-card card shadow-sm text-start mb-5">
+        {% if file_path %}
+          <img src="{{file_path}}" class="card-img-top">
+        {% endif %}
+        {% if title or body %}
+          <div class="card-body p-0">
+            <h5 class="card-title text-sd-secondary m-3">{{ title }}</h5>
+            <p class="card-text m-3 ws-pre">{{ body }}</p>
+          </div>
+        {% endif %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item container">
+            <div class="row">
+              <p class="col-3 col-md-2 mb-0 p-0 text-end">日時：</p>
+              <p class="col-9 col-md-10 mb-0">{{ posted_at }}</p>
+            </div>
+          </li>
+          <li class="list-group-item container">
+            <div class="row">
+              <p class="col-3 col-md-2 mb-0 p-0 text-end">カテゴリ：</p>
+              <p class="col-9 col-md-10 mb-0">{{ category_name }}</p>
+            </div>
+          </li>
+          <li class="list-group-item container">
+            <div class="row">
+              <p class="col-3 col-md-2 mb-0 p-0 text-end">タグ：</p>
+              <p class="col-9 col-md-10 mb-0">
+                {% for tag in tag_list %}
+                  <a href="/search?keywords={{tag}}" class="badge bg-sd-tertiary tag-badge">{{ tag }}</a>
+                {% endfor %}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 投稿されているコメント -->
+      {% if posted_comments %}
+        <div id="posted-comments" class="mb-5">
+          <h2 class="text-sd-secondary text-center fs-6 mb-4">この記事へのコメント</h2>
+          {% for posted_comment in posted_comments %}
+            <div class="d-flex mb-4">
+                <div class="comment-poster">
+                  <a href="{{ url_for('user', user_id=posted_comment.user_id) }}" class="d-block mb-1">
+                  {% if posted_comment['avatar'] %}
+                    <div class="avatar-circle">
+                        <img src="../static/avatars/avatar_{{ posted_comment['user_id'] }}.webp" width="100" height="100">
+                    </div>
+                  {% else %}
+                    <div class="avatar-circle avatar-placeholder"></div>
+                  {% endif %}
+                  </a>
+                  <p class="mb-0">
+                    <a href="{{ url_for('user', user_id=posted_comment['user_id']) }}" class="text-center text-sd-secondary">{{ posted_comment['username'] }}</a>
+                  </p>
+                </div>
+                <div class="comment-body flex-grow-1 ms-4">
+                  <p class="text-start mb-0 text-break">{{ posted_comment['body'] }}</p>
+                  <span class="comment-datetime mb-0">{{ posted_comment['created_at'][:16] }}</span>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <!-- コメントフォーム -->
+      {% if current_user.is_authenticated %}
+        <div>
+          <form action="{{ url_for('view', post_id=post_id) }}" method="post" class="needs-validation" novalidate>
+
+            <div class="mb-3">
+              <p class="text-start m-0"><label for="comment-textarea" class="form-label">コメント記入欄<small id="comment-count"></small></label></p>
+              <textarea name="input_comment" class="form-control {{is_valid['comment']}}" id="comment-textarea" rows="4" placeholder="">{{input_comment}}</textarea>
+              {% if exceeds_text_limit['comment'] %}
+                <div class="invalid-feedback text-start">コメントは{{exceeds_text_limit['comment']}}文字までです</div>
+              {% else %}
+                <span class="invalid-feedback text-start">コメントを入力してください</span>
+              {% endif %}
+            </div>
+            <div class="text-center"><button class="btn btn btn-sd-secondary" type="submit"><i class="bi bi-chat-dots me-1"></i>コメントを投稿する</button></div>
+          </form>
+        </div>
+        {% else %}
+        <p class="text-center">コメントを投稿するには<a href="{{ url_for('login') }}" class="text-sd-primary hover-underline">ログイン</a>が必要です。</p>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+{%block script%}
+<script src="{{url_for('static', filename='js/view.js')}}"></script>
+{%endblock%}

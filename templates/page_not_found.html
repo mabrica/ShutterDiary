@@ -1,0 +1,16 @@
+<!---------------------------------
+　404エラー画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<div class="container g-5 pt-5">
+  <div>
+    <p class="text-center mt-5">
+      <i class="bi bi-question-circle fs-1"></i><br>
+      申し訳ございません。ページが見つかりませんでした。
+    </p>
+    <p class="text-center mt-5"><a class="btn btn-sd-secondary" href="{{url_for('index')}}" role="button">TOPページに戻る</a></p>
+  </div>
+</div>
+{%endblock%}

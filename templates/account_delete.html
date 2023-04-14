@@ -1,0 +1,47 @@
+<!--------------------------------------
+　パスワード変更（現在のパスワード入力）画面
+ --------------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-door-open me-2"></i>退会（アカウントの削除）</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-8 col-lg-5">
+
+      <div class="text-center mt-3 mb-5">
+        <p class="d-inline-block text-start fs-6 text-sd-secondary">
+          このページでは本サイトからの退会処理を行えます。<br class="d-none d-md-inline">
+          退会の前に必ず注意事項をご確認ください。
+        </p>
+      </div>
+
+      <p class="text-center mb-5"></p>
+
+      <form action="/account/delete" method="post" class="needs-validation" novalidate>
+
+        <p class="text-center text-danger fs-6"><i class="bi bi-exclamation-triangle-fill"></i> ご注意ください</p>
+
+        <ul class="list-group list-group-flush mb-5">
+          <li class="list-group-item list-group-item-danger">一度削除したアカウントは、復元できません。</li>
+          <li class="list-group-item list-group-item-danger">今までに投稿した記事は閲覧できなくなります。</li>
+          <li class="list-group-item list-group-item-danger">他ユーザーの記事に書き込んだコメントは削除されません。</li>
+        </ul>
+
+        <div class="d-block d-md-flex mb-5" id="delete-form">
+          <div class="flex-grow-1">
+            <input type="password" name="password" value="{{password}}" placeholder="パスワードを入力してください" class="form-control {{is_valid['password']}}" id="input-password" required>
+            {% if is_wrong_password %}
+              <span class="invalid-feedback">パスワードが間違っています</span>
+            {% else %}
+              <span class="invalid-feedback">項目を入力してください</span>
+            {% endif %}
+          </div>
+          <div class="d-block d-md-flex text-center mt-3 mt-md-0"><button type="submit" name="input_from" value="current" class="btn btn-danger px-3 ms-md-2"><i class="bi bi-door-open me-2"></i>退会する</button></div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{%endblock%}

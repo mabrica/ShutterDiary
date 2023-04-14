@@ -1,0 +1,63 @@
+<!---------------------------------
+　記事作成確認画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-pencil-square me-2"></i>記事の作成</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-6 text-center">
+
+      <p class="text-center mt-3 mb-5 fs-6 text-sd-secondary">入力内容をご確認ください。</p>
+
+      <!-- 入力情報表示 -->
+      <div class="article-card card shadow-sm text-start mb-5">
+        {% if file_path %}
+          <img src="{{file_path}}" class="card-img-top" alt="{{ title }}">
+        {% endif %}
+        {% if title or body %}
+          <div class="card-body p-0">
+            <h5 class="card-title text-sd-secondary m-3">{{ title }}</h5>
+            <p class="card-text m-3 ws-pre">{{ body }}</p>
+          </div>
+        {% endif %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item container">
+            <div class="row">
+              <p class="col-3 col-md-2 mb-0 p-0 text-end">カテゴリ：</p>
+              <p class="col-9 col-md-10 mb-0">{{ category_name }}</p>
+            </div>
+          </li>
+          <li class="list-group-item container">
+            <div class="row">
+              <p class="col-3 col-md-2 mb-0 p-0 text-end">タグ：</p>
+              <p class="col-9 col-md-10 mb-0">
+                {% for tag in tag_list %}
+                  <a href="/search?keyword={{tag}}" class="badge bg-sd-tertiary tag-badge">{{ tag }}</a>
+                {% endfor %}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 前画面から受け取った情報を送信 -->
+      <form action="/create" method="post">
+        <input type="hidden" name="original_filename" value="{{original_filename}}">
+        <input type="hidden" name="temp_filename" value="{{temp_filename}}">
+        <input type="hidden" name="extension" value="{{extension}}">
+        <input type="hidden" name="title" value="{{title}}">
+        <input type="hidden" name="body" value="{{body}}">
+        <input type="hidden" name="category_id" value="{{category_id}}">
+        <input type="hidden" name="tags" value="{{tags}}">
+        <input type="hidden" name="is_private" value="{{is_private}}">
+        <button type="submit" class="btn btn-secondary me-2">修正する</button>
+        <button type="submit" class="btn btn-sd-secondary ms-2" name="mode" value="completed" id="signup-btn">投稿する</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+{%endblock%}

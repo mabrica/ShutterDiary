@@ -1,0 +1,64 @@
+<!---------------------------------
+　ログイン画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-box-arrow-in-right me-2"></i>ログイン</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-5">
+      <form action="/login" method="post" class="needs-validation" id="signup-form" novalidate>
+
+        <div class="row mb-4 mt-md-3 mt-lg-5">
+          <label for="input-email" class="col-sm-3 col-form-label">メールアドレス</label>
+          <div class="col-sm-9">
+            <input type="text" name="email" value="{{email}}" class="form-control {{is_valid['email']}}" id="input-email" required>
+            {% if is_not_email %}
+              <span class="invalid-feedback">メールアドレスではありません</span>              
+            {% elif email_notfound %}
+              <span class="invalid-feedback">メールアドレスが存在しません</span>
+            {% else %}
+              <span class="invalid-feedback">項目を入力してください</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label for="input-password" class="col-sm-3 col-form-label">パスワード</label>
+          <div class="col-sm-9">
+            <input type="password" name="password" value="{{password}}" class="form-control {{is_valid['password']}}" id="input-password" required>
+            {% if is_wrong_password %}
+              <span class="invalid-feedback">メールアドレスとパスワードが一致しません</span>
+            {% else %}
+              <span class="invalid-feedback">項目を入力してください</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="checkbox mb-3">
+          <label class="checkbox-label" role="button">
+            {% if remember %}
+              <input type="checkbox" name="remember-me" value="1" role="button" checked> <small class="text-muted">ログイン状態を保存する</small></input>
+            {% else %}
+              <input type="checkbox" name="remember-me" value="1" role="button"> <small class="text-muted">ログイン状態を保存する</small></input>
+            {% endif %}
+          </label>
+        </div>
+        
+        <!-- ログインフォーム判別用 -->
+        <input type="hidden" name="mode" value="login">
+
+        <div class="text-center"><button type="submit" class="btn btn-sd-secondary"><i class="bi bi-box-arrow-in-right me-2"></i>ログイン</button></div>
+        
+        <hr class="my-4">
+        <small class="text-muted">アカウントをお持ちでない方は、<a href="{{url_for('signup')}}" class="text-sd-secondary">会員登録</a>をしてください</small>
+      </form>
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+{%block script%}
+<script src="{{url_for('static', filename='js/signup.js')}}"></script>
+{%endblock%}

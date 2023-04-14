@@ -1,0 +1,202 @@
+/*---------------------------------
+　ブランドカラーテーマCSS
+ ---------------------------------*/
+
+
+/* ブランドカラー変数 */
+:root {
+    --sd-light: #f8f9f5;
+    --sd-primary: #58b8d5;
+    --sd-secondary: #74c3de;
+    --sd-tertiary: #91cfe7;
+    --sd-quaternary: #aedbf0;
+    --sd-dark: #1c373f;
+    --sd-lightdark: #a3a3a3;
+    --sd-warning: #de8f74;
+    --sd-danger: #8b3c21;
+}
+
+/* ブランドカラー背景色 */
+.bg-sd-light { background: var(--sd-light); }
+.bg-sd-primary { background: var(--sd-primary); }
+.bg-sd-secondary { background: var(--sd-secondary); }
+.bg-sd-tertiary { background: var(--sd-tertiary); }
+.bg-sd-dark { background: var(--sd-dark); }
+.bg-sd-warning { background: var(--sd-warning) }
+.bg-sd-danger { background: var(--sd-danger) }
+
+/* ブランドカラー枠線色 */
+.border-sd-light { border-color: var(--sd-light); }
+.border-sd-primary { border-color: var(--sd-primary); }
+.border-sd-secondary { border-color: var(--sd-secondary); }
+.border-sd-tertiary { border-color: var(--sd-tertiary); }
+.border-sd-dark { border-color: var(--sd-dark); }
+.border-sd-lightdark { border-color: var(--sd-lightdark); }
+.border-sd-warning { border-color: var(--sd-warning); }
+.border-sd-danger { border-color: var(--sd-danger); }
+
+/* ブランドカラー文字色 */
+.text-sd-light { color: var(--sd-light); }
+.text-sd-primary { color: var(--sd-primary); }
+.text-sd-secondary { color: var(--sd-secondary); }
+a.text-sd-secondary:hover { color: var(--sd-primary); }
+.text-sd-tertiary { color: var(--sd-tertiary); }
+.text-sd-dark { color: var(--sd-dark); }
+.text-sd-lightdark { color: var(--sd-lightdark); }
+.text-sd-warning { color: var(--sd-waning); }
+.text-sd-danger { color: var(--sd-danger); }
+
+/* ブランドカラーボタン色 */
+.btn-sd-primary {
+    background: var(--sd-primary);
+    color: #ffffff;
+}
+.btn-sd-primary:hover, .btn-sd-primary:focus, 
+.btn-sd-primary:active, .btn-sd-primary:active:focus, .btn-sd-primary:active:hover, .btn-sd-primary:active.focus,
+.btn-sd-primary.active, .btn-sd-primary.active:focus, .btn-sd-primary.active:hover, .btn-sd-primary.active.focus,
+.open > .dropdown-toggle.btn-sd-primary, 
+.open > .dropdown-toggle.btn-sd-primary:hover,
+.open > .dropdown-toggle.btn-sd-primary:focus, 
+.open > .dropdown-toggle.btn-sd-primary.focus,
+.btn-sd-primary.disabled:hover, .btn-sd-primary[disabled]:hover, fieldset[disabled] .btn-sd-primary:hover,
+.btn-sd-primary.disabled:focus, .btn-sd-primary[disabled]:focus, fieldset[disabled] .btn-sd-primary:focus,
+.btn-sd-primary.disabled.focus, .btn-sd-primary[disabled].focus, fieldset[disabled] .btn-sd-primary.focus {
+    background: var(--sd-secondary);
+    color: #ffffff;
+}
+.btn-sd-primary.outline {
+    border: var(--sd-primary);
+    color: var(--sd-primary);
+}
+
+.btn-sd-secondary {
+    background: var(--sd-secondary);
+    color: #ffffff;
+}
+.btn-sd-secondary:hover, .btn-sd-secondary:focus, 
+.btn-sd-secondary:active, .btn-sd-secondary:active:focus, .btn-sd-secondary:active:hover, .btn-sd-secondary:active.focus,
+.btn-sd-secondary.active, .btn-sd-secondary.active:focus, .btn-sd-secondary.active:hover, .btn-sd-secondary.active.focus,
+.open > .dropdown-toggle.btn-sd-secondary, 
+.open > .dropdown-toggle.btn-sd-secondary:hover,
+.open > .dropdown-toggle.btn-sd-secondary:focus, 
+.open > .dropdown-toggle.btn-sd-secondary.focus,
+.btn-sd-secondary.disabled:hover, .btn-sd-secondary[disabled]:hover, fieldset[disabled] .btn-sd-secondary:hover,
+.btn-sd-secondary.disabled:focus, .btn-sd-secondary[disabled]:focus, fieldset[disabled] .btn-sd-secondary:focus,
+.btn-sd-secondary.disabled.focus, .btn-sd-secondary[disabled].focus, fieldset[disabled] .btn-sd-secondary.focus {
+    background: var(--sd-primary);
+    color: #ffffff;
+}
+.btn-sd-secondary.outline {
+    border: var(--sd-secondary);
+    color: var(--sd-secondary);
+}
+
+.btn-sd-tertiary {
+    background: var(--sd-tertiary);
+    color: #ffffff;
+}
+.btn-sd-tertiary:hover, .btn-sd-tertiary:focus, 
+.btn-sd-tertiary:active, .btn-sd-tertiary:active:focus, .btn-sd-tertiary:active:hover, .btn-sd-tertiary:active.focus,
+.btn-sd-tertiary.active, .btn-sd-tertiary.active:focus, .btn-sd-tertiary.active:hover, .btn-sd-tertiary.active.focus,
+.open > .dropdown-toggle.btn-sd-tertiary, 
+.open > .dropdown-toggle.btn-sd-tertiary:hover,
+.open > .dropdown-toggle.btn-sd-tertiary:focus, 
+.open > .dropdown-toggle.btn-sd-tertiary.focus,
+.btn-sd-tertiary.disabled:hover, .btn-sd-tertiary[disabled]:hover, fieldset[disabled] .btn-sd-tertiary:hover,
+.btn-sd-tertiary.disabled:focus, .btn-sd-tertiary[disabled]:focus, fieldset[disabled] .btn-sd-tertiary:focus,
+.btn-sd-tertiary.disabled.focus, .btn-sd-tertiary[disabled].focus, fieldset[disabled] .btn-sd-tertiary.focus {
+    background: var(--sd-secondary);
+    color: #ffffff;
+}
+.btn-sd-tertiary.outline {
+    border: var(--sd-tertiary);
+    color: var(--sd-tertiary);
+}
+
+.btn-sd-dark {
+    background: var(--sd-dark);
+    color: #ffffff;
+}
+.btn-sd-dark:hover, .btn-sd-dark:focus, 
+.btn-sd-dark:active, .btn-sd-dark:active:focus, .btn-sd-dark:active:hover, .btn-sd-dark:active.focus,
+.btn-sd-dark.active, .btn-sd-dark.active:focus, .btn-sd-dark.active:hover, .btn-sd-dark.active.focus,
+.open > .dropdown-toggle.btn-sd-dark, 
+.open > .dropdown-toggle.btn-sd-dark:hover,
+.open > .dropdown-toggle.btn-sd-dark:focus, 
+.open > .dropdown-toggle.btn-sd-dark.focus,
+.btn-sd-dark.disabled:hover, .btn-sd-dark[disabled]:hover, fieldset[disabled] .btn-sd-dark:hover,
+.btn-sd-dark.disabled:focus, .btn-sd-dark[disabled]:focus, fieldset[disabled] .btn-sd-dark:focus,
+.btn-sd-dark.disabled.focus, .btn-sd-dark[disabled].focus, fieldset[disabled] .btn-sd-dark.focus {
+    background: var(--sd-tertiary);
+    color: #ffffff;
+}
+.btn-sd-dark.outline {
+    border: var(--sd-dark);
+    color: var(--sd-dark);
+}
+
+.btn-sd-lightdark {
+    background: var(--sd-lightdark);
+    color: #ffffff;
+}
+.btn-sd-lightdark:hover, .btn-sd-lightdark:focus, 
+.btn-sd-lightdark:active, .btn-sd-lightdark:active:focus, .btn-sd-lightdark:active:hover, .btn-sd-lightdark:active.focus,
+.btn-sd-lightdark.active, .btn-sd-lightdark.active:focus, .btn-sd-lightdark.active:hover, .btn-sd-lightdark.active.focus,
+.open > .dropdown-toggle.btn-sd-lightdark, 
+.open > .dropdown-toggle.btn-sd-lightdark:hover,
+.open > .dropdown-toggle.btn-sd-lightdark:focus, 
+.open > .dropdown-toggle.btn-sd-lightdark.focus,
+.btn-sd-lightdark.disabled:hover, .btn-sd-lightdark[disabled]:hover, fieldset[disabled] .btn-sd-lightdark:hover,
+.btn-sd-lightdark.disabled:focus, .btn-sd-lightdark[disabled]:focus, fieldset[disabled] .btn-sd-lightdark:focus,
+.btn-sd-lightdark.disabled.focus, .btn-sd-lightdark[disabled].focus, fieldset[disabled] .btn-sd-lightdark.focus {
+    background: var(--sd-tertiary);
+    color: #ffffff;
+}
+.btn-sd-lightdark.outline {
+    border: var(--sd-lightdark);
+    color: var(--sd-lightdark);
+}
+
+.btn-sd-warning {
+    background: var(--sd-warning);
+    color: #ffffff;
+}
+.btn-sd-warning:hover, .btn-sd-warning:focus, 
+.btn-sd-warning:active, .btn-sd-warning:active:focus, .btn-sd-warning:active:hover, .btn-sd-warning:active.focus,
+.btn-sd-warning.active, .btn-sd-warning.active:focus, .btn-sd-warning.active:hover, .btn-sd-warning.active.focus,
+.open > .dropdown-toggle.btn-sd-warning, 
+.open > .dropdown-toggle.btn-sd-warning:hover,
+.open > .dropdown-toggle.btn-sd-warning:focus, 
+.open > .dropdown-toggle.btn-sd-warning.focus,
+.btn-sd-warning.disabled:hover, .btn-sd-warning[disabled]:hover, fieldset[disabled] .btn-sd-warning:hover,
+.btn-sd-warning.disabled:focus, .btn-sd-warning[disabled]:focus, fieldset[disabled] .btn-sd-warning:focus,
+.btn-sd-warning.disabled.focus, .btn-sd-warning[disabled].focus, fieldset[disabled] .btn-sd-warning.focus {
+    background: #c27d66;
+    color: #ffffff;
+}
+.btn-sd-warning.outline {
+    border: var(--sd-warning);
+    color: var(--sd-warning);
+}
+
+.btn-sd-danger {
+    background: var(--sd-danger);
+    color: #ffffff;
+}
+.btn-sd-danger:hover, .btn-sd-danger:focus, 
+.btn-sd-danger:active, .btn-sd-danger:active:focus, .btn-sd-danger:active:hover, .btn-sd-danger:active.focus,
+.btn-sd-danger.active, .btn-sd-danger.active:focus, .btn-sd-danger.active:hover, .btn-sd-danger.active.focus,
+.open > .dropdown-toggle.btn-sd-danger, 
+.open > .dropdown-toggle.btn-sd-danger:hover,
+.open > .dropdown-toggle.btn-sd-danger:focus, 
+.open > .dropdown-toggle.btn-sd-danger.focus,
+.btn-sd-danger.disabled:hover, .btn-sd-danger[disabled]:hover, fieldset[disabled] .btn-sd-danger:hover,
+.btn-sd-danger.disabled:focus, .btn-sd-danger[disabled]:focus, fieldset[disabled] .btn-sd-danger:focus,
+.btn-sd-danger.disabled.focus, .btn-sd-danger[disabled].focus, fieldset[disabled] .btn-sd-danger.focus {
+    background: #77331c;;
+    color: #ffffff;
+}
+.btn-sd-danger.outline {
+    border: var(--sd-danger);
+    color: var(--sd-danger);
+}

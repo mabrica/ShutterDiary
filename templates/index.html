@@ -1,0 +1,107 @@
+<!---------------------------------
+　トップ画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+
+<!-- ログアウト時のみヒーロー表示 -->
+<section class="container-fluid" id="hero">
+  {% if current_user.is_authenticated %}
+    <div class="px-4 pt-5 text-center border-bottom">
+      <h1 class="display-6 mb-4 fw-bold">世界を探索しよう</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4 fs-6">自然、風景、人物、動物、etc.<br>気になるキーワードを入れて検索</p>
+        <div class="d-grid gap-2 d-flex justify-content-center mb-5">
+          <form class="d-flex my-3" action="{{ url_for('search') }}" method="get" id="hero-search" role="search">
+            <input class="form-control" name="keywords" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn text-light" type="submit"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+      <div class="row align-items-center g-lg-5 py-2 py-md-3 py-lg-5">
+
+        <div class="col-lg-7 mb-4 mb-lg-0 text-center text-lg-start" id="hero-slogan">
+          <h1 class="display-5 fw-bold lh-1 mb-4">毎日を写真で彩ろう</h1>
+          <p class="col-lg-10">『ShutterDiary』は撮影した写真を友達や<br>世界の人々とシェアできる画像ブログです</p>
+        </div>
+
+        <div class="col-md-10 mx-auto col-lg-5">
+          <form action="/login" method="post" class="p-3 p-md-5 bg-sd-light">
+
+            <div class="form-floating mb-3">
+              <input type="email" name="email" class="form-control" placeholder="メールアドレス" id="floatingInput">
+              <label for="floatingInput">メールアドレス</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="password" name="password" class="form-control" placeholder="パスワード" id="floatingPassword">
+              <label for="floatingPassword">パスワード</label>
+            </div>
+
+            <div class="checkbox mb-3">
+              <label class="remember-me" role="button">
+                <input type="checkbox" name="remember-me" value="1"> <small class="text-muted">ログイン状態を保存する</small>
+              </label>
+            </div>
+
+            <!-- ログインフォーム判別用 -->
+            <input type="hidden" name="mode" value="login">
+
+            <button class="w-100 btn btn-lg btn-sd-secondary" type="submit"><i class="bi bi-box-arrow-in-right me-2"></i>ログイン</button>
+
+            <hr class="mt-4 mb-3">
+            <small class="text-muted">アカウントをお持ちでない方は、<a href="{{url_for('signup')}}" class="text-sd-secondary hover-underline">会員登録</a>をしてください</small>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<!-- 新着一覧 -->
+<section class="mt-5">
+  <h5 class="text-center text-sd-secondary">新着記事</h5>
+  <div class="container">
+    <div class="row px-1">
+      {% if posts %}
+        {% for post in posts %}
+          <div class="col-6 col-md-4 col-lg-3 g-2 g-md-3 g-lg-4">
+            <a href="{{ url_for('view', post_id=post.id) }}" class="card-link shadow-sm">
+              <div class="card h-100 list-card">
+                <img src="../static/user_thumbnails/{{post.thumbnail_filename}}" class="card-img-top">
+                <div class="card-body">
+                  {% if post.title %}
+                    <h6 class="card-title text-sd-secondary m-0">{{post.title}}</h6>
+                  {% else %}
+                    <h6 class="card-title m-0 fw-normal text-sd-secondary">（タイトルなし）</h6>
+                  {% endif %}
+                  {% if post.body %}
+                    <p class="card-text mt-1">{{post.body}}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div>
+          <p class="text-center mt-5">
+            <i class="bi bi-question-circle fs-1"></i><br>
+            記事がありません。
+          </p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ログイン時のみ記事作成ボタン表示 -->
+{% if current_user.is_authenticated %}
+<aside id="floating-btn"><a href="{{url_for('create')}}" role="button"><i class="bi bi-pencil-square"></i></aside>
+{% endif %}
+
+{%endblock%}

@@ -1,0 +1,36 @@
+<!---------------------------------
+　ヘルプ画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-question-circle me-2"></i> ヘルプ</h1>
+<div class="container g-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h2 class="text-sd-secondary text-center fs-3 mb-5">What is <i class="fw-bold">ShutterDiary</i> ?</h2>
+      <div class="text-center mb-4">
+        <p class="d-inline-block text-start fs-6">
+          『ShutterDiary』は写真を気軽に公開・共有できる画像ブログです。PythonのWebアプリケーションフレームワーク、Flaskを使用して制作されています。<br><br>
+          主な機能は下記の通りです。
+        </p>
+        <ul class="d-inline-block text-start fs-6 w-100 mb-4 px-5 py-4 border"">
+            <li>会員登録（アカウントの作成）</li>
+            <li>アカウント情報の変更・削除</li>
+            <li>ログイン・ログアウト</li>
+            <li>記事の作成</li>
+            <li>作成済み記事の編集・削除</li>
+            <li>コメント投稿</li>
+            <li>キーワード検索</li>
+            <li>サムネイルの自動生成</li>
+        </ul>
+        <p class="d-inline-block text-start fs-6">
+          なお、トップページのヘッダー画像は、商用無料の画像素材サイトの『Unsplash』様よりお借りしたものです。画像の著作権は著作者に帰属します。<br><br>
+          <a href="https://unsplash.com/" class="text-sd-secondary hover-underline">https://unsplash.com/</a>
+        </p>
+      </div>
+      <p class="text-center mt-5"><a class="btn btn-sd-secondary" href="{{url_for('index')}}" role="button">TOPページに戻る</a></p>
+    </div>
+  </div>
+</div>
+{%endblock%}

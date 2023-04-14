@@ -1,0 +1,143 @@
+<!---------------------------------
+　記事作成フォーム画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+
+{%block stylesheet%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/switch.css')}}">
+{%endblock%}
+
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-eraser me-2"></i>記事の編集</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-6">
+
+      <!-- メインフォーム -->
+      <div id="form-wrapper">
+
+        <!-- 画像プレビュー -->
+        {% if existing_filepath and not is_valid['file'] %}
+          <div id="image-preview" class="mb-5"><img src="{{ existing_filepath }}"></div>
+        {% else %}
+          <div id="image-preview" class="image-placeholder mb-5"><img src=""></div>
+        {% endif %}
+
+        <form action="/edit/{{post_id}}" method="post" enctype="multipart/form-data" class="needs-validation">
+
+          {% if existing_filename and not is_valid['file'] %}
+          <div class="mb-4" id="existing-image">
+              <label for="select-image" class="form-label">現在の画像</label>
+              <div class="d-flex">
+                <p>{{ existing_filename }}</p>
+                <label type="button" class="btn btn-sm btn-sd-secondary" for="change-image" id="show-form">変更</label>
+                <input type="checkbox" class="btn-check" name="change_image" value="1" id="change-image" autocomplete="off">
+              </div>
+          </div>
+          {% endif %}
+
+          <!-- 変更ボタンを押した後、バリデーションエラーが起きた時用 -->
+          {% if existing_filename and is_valid['file'] %}
+          <input type="hidden" name="change_image" value="1">
+          {% endif %}
+
+          <div class="mb-3" id="image-form">
+            <label for="select-image" class="form-label">画像選択<small class="ms-2">（対応フォーマット： JPEG, GIF, PNG）</small></label>
+            <input type="file" name="file" class="form-control {{is_valid['file']}}" id="select-image" aria-label="file example" accept=".jpg,.png,.gif,.JPEG,.PNG,.GIF">
+            {% if is_not_image %}
+              <div class="invalid-feedback" id="file-error">対応していないファイル形式です</div>
+            {% else %}
+              <div class="invalid-feedback" id="file-error">画像か本文のどちらかは必須です</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="input-title" class="form-label">タイトル<small id="title-count"></small></label>
+            <input type="text" name="title" value="{{title}}" class="form-control {{is_valid['title']}}" id="input-title" placeholder="">
+            {% if exceeds_text_limit['title'] %}
+              <div class="invalid-feedback">タイトルは{{exceeds_text_limit['title']}}文字までです</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="body-textarea" class="form-label">本文<small id="body-count"></small></label>
+            <textarea name="body" class="form-control {{is_valid['body']}}" id="body-textarea" rows="4" placeholder="">{{body}}</textarea>
+            {% if exceeds_text_limit['body'] %}
+              <div class="invalid-feedback">本文は{{exceeds_text_limit['body']}}文字までです</div>
+            {% else %}
+              <div class="invalid-feedback">画像か本文のどちらかは必須です</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="select-category" class="form-label">カテゴリ</label>
+            <select name="category_id" class="form-select" id="select-category" required aria-label="select example">
+              <option value="0"></option>
+              {% for category in categories %}
+                {% if category_id == category.id %}
+                  <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                {% else %}
+                  <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label for="input-tags" class="form-label">タグ<small>（関連キーワードをスペース区切りで入力）</small></label>
+            <input type="text" name="tags" value="{{ tags }}" maxlength="100" class="form-control {{is_valid['tags']}}" id="input-tags" placeholder="">
+            {% if exceeds_tags_limit %}
+              <div class="invalid-feedback">登録できるタグは{{exceeds_tags_limit}}個までです</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-5" id="private-switch">
+            <label for="select-category" class="form-label">プライベートモード</label>
+            <div class="d-flex">
+              <div class="switchArea">
+                {% if is_private %}
+                  <input type="checkbox" name="is_private" value="1" id="is-private" checked>
+                {% else %}
+                  <input type="checkbox" name="is_private" value="1" id="is-private">
+                {% endif %}
+                <label for="is-private"><span></span></label>
+                <div id="swImg"></div>
+              </div>
+              <p id="private-mode-state"><span>OFF</span><small>（すべてのユーザーが閲覧可能）</small></p>
+            </div>
+          </div>
+
+          <div class="mb-3 text-center">
+            <button type="button" class="btn btn-sd-warning me-2" id="delete-post">記事を削除する</button>
+            <button type="submit" name="mode" value="confirm" class="btn btn-sd-secondary ms-2">変更を確認する</button>
+          </div>
+
+        </form>
+      </div><!-- #form-wrapper -->
+
+      <!-- 削除フォーム -->
+      <div class="container g-5 pt-5" id="delete-confirm" style="display:none">
+        <div>
+          <p class="text-center my-5">
+            <i class="bi bi-trash3-fill fs-1"></i><br>
+            本当に記事を削除しますか？<br>
+            一度削除した記事は、元に戻せません。
+          </p>
+          <div class="mb-3 text-center">
+            <form action="{{ url_for('delete') }}" method="post">
+              <button type="button" class="btn btn-secondary me-2" id="cancel-delete">削除しない</button>
+              <button type="submit" name="post_id" value="{{post_id}}" class="btn btn-sd-warning ms-2">削除する</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+{%block script%}
+<script src="{{url_for('static', filename='js/post.js')}}"></script>
+{%endblock%}

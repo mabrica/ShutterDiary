@@ -1,0 +1,56 @@
+<!---------------------------------
+　各種設定画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-gear-fill me-2"></i>アカウント設定</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-6">
+
+      <div class="text-center mt-3 mb-4">
+        <p class="d-inline-block text-start fs-6 text-sd-secondary">
+          お客様のアカウント情報の確認や変更を行うことができます。<br class="d-none d-md-inline">
+          ご希望の項目をお選びください。
+        </p>
+      </div>
+
+      <div class="container">
+        <ul class="row list-unstyled">
+          <li class="col-6 p-2">
+            <a href="account/email" class="account-btn h-100">
+              <i class="bi bi-envelope fs-1"></i><br>
+              メールアドレスの変更
+            </a>
+          </li>
+          <li class="col-6 p-2">
+            <a href="account/password" class="account-btn h-100">
+              <i class="bi bi-key fs-1"></i><br>
+              パスワードの変更
+            </a>
+          </li>
+          <li class="col-6 p-2">
+            <a href="account/avatar" class="account-btn h-100">
+              <i class="bi bi-person-fill fs-1"></i><br>
+              アバターの変更
+            </a>
+          </li>
+          <li class="col-6 p-2">
+            <a href="account/profile" class="account-btn h-100">
+              <i class="bi bi-card-text fs-1"></i><br>
+              プロフィールの変更
+            </a>
+          </li>
+          <li class="col-12 p-2">
+            <a href="account/delete" class="account-btn delete">
+              <i class="bi bi-door-open fs-4"></i>
+              <span >退会（アカウントの削除）</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

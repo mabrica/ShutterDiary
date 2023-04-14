@@ -1,0 +1,61 @@
+<!---------------------------------
+　記事作成フォーム画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-person-fill me-2"></i>アバターの変更</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-5">
+
+      <div class="text-center mt-3 mb-5">
+        <p class="d-inline-block text-start fs-6 text-sd-secondary">
+          このページではアバター画像の登録・変更ができます。<br class="d-none d-md-inline">
+          アバター画像は丸く切り抜かれた状態で表示されます。
+        </p>
+      </div>
+
+      {% if avatar %}
+      <div id="existing-avatar">
+        <div class="avatar-circle mb-5"><img src="{{ avatar }}" width="100" height="100"></div>
+        <div class="text-center"><button type="button" id="show-form" class="btn btn-sd-secondary">アバター画像を変更する</button></div>
+      </div>
+      <div id="new-avatar" style="display:none;">
+      {% endif %}
+
+      <!-- 画像プレビュー -->
+      <div id="avatar-preview" class="avatar-circle avatar-placeholder mb-5"><img src=""></div>
+
+      <!-- フォーム -->
+      <form action="/account/avatar" method="post" enctype="multipart/form-data" class="needs-validation">
+
+        <div class="mb-5">
+          <label for="select-avatar" class="form-label">画像選択　<small>（対応フォーマット： JPEG, GIF, PNG）</small></label>
+          <input type="file" name="file" class="form-control {{is_valid['file']}}" id="select-avatar" accept=".jpg,.png,.gif,.JPEG,.PNG,.GIF">
+          {% if is_not_image %}
+            <div class="invalid-feedback" id="file-error">対応していないファイル形式です</div>
+          {% else %}
+            <div class="invalid-feedback" id="file-error">ファイルが選択されていません。</div>
+          {% endif %}
+        </div>
+
+        <div class="text-center">
+          <button type="submit" name="mode" value="confirm" class="btn btn-sd-secondary">変更を保存する</button>
+        </div>
+
+      </form>
+
+      {% if avatar %}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+{%block script%}
+<script src="{{url_for('static', filename='js/avatar.js')}}"></script>
+{%endblock%}

@@ -1,0 +1,16 @@
+<!---------------------------------
+　404エラー画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<div class="container g-5 pt-5">
+  <div>
+    <p class="text-center mt-5">
+      <i class="bi bi-person-fill-x fs-1"></i><br>
+      このユーザーは存在しないか、既に退会しています。
+    </p>
+    <p class="text-center mt-5"><a class="btn btn-sd-secondary" href="{{url_for('index')}}" role="button">TOPページに戻る</a></p>
+  </div>
+</div>
+{%endblock%}

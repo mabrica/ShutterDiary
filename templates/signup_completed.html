@@ -1,0 +1,15 @@
+<!---------------------------------
+　会員登録完了画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-person-add me-2"></i>会員登録</h1>
+<div>
+  <p class="text-center mt-5">
+    <i class="bi bi-check2-circle fs-1"></i></i><br>
+    ご登録ありがとうございます。<br>{{username}}さんのアカウントが作成されました。
+  </p>
+  <p class="text-center mt-5"><a class="btn btn-sd-secondary" href="{{url_for('index')}}" role="button">TOPページに戻る</a></p>
+</div>
+{%endblock%}

@@ -1,0 +1,95 @@
+<!---------------------------------
+　会員登録フォーム画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+<h1 class="text-center bg-sd-secondary text-sd-light fs-4 p-4 mb-5"><i class="bi bi-person-add me-2"></i>会員登録</h1>
+<div class="container g-5 mt-5">
+  <div class="row justify-content-center mb-3">
+    <div class="col-lg-6">
+      <form action="/signup" method="post" class="needs-validation" id="signup-form" novalidate>
+        <div class="row mb-4">
+          <label for="input-email" maxlength="100" class="col-sm-3 col-form-label">メールアドレス</label>
+          <div class="col-sm-9">
+            <input type="email" name="email" value="{{email}}" class="form-control {{is_valid['email']}}" id="input-email" required>
+            {% if email_exists %}
+              <span class="invalid-feedback">既に使われているメールアドレスです</span>
+            {% elif is_not_email %}
+            <span class="invalid-feedback">メールアドレスではありません</span>
+            {% else %}
+              <span class="invalid-feedback">項目を入力してください</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <label for="input-username" class="col-sm-3 col-form-label">ユーザー名</label>
+          <div class="col-sm-9">
+            <input type="text" maxlength="100" name="username" value="{{username}}" class="form-control {{is_valid['username']}}" id="input-username" required>
+            {% if username_exists %}
+              <span class="invalid-feedback">既に使われているユーザー名です</span>
+            {% elif exceeds_text_limit['username'] %}
+              <span class="invalid-feedback">ユーザー名は{{ exceeds_text_limit['username'] }}文字以下で入力してください</span>
+            {% else %}
+              <span class="invalid-feedback">項目を入力してください</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <label for="input-password" class="col-sm-3 col-form-label mt-md-3 pt-md-4">パスワード</label>
+          <div class="col-sm-9">
+            <p id="pm-indicator"></p>
+            <input type="password" maxlength="100" name="password" value="{{password}}" class="form-control {{is_valid['password']}}" id="input-password" required>
+            {% if exceeds_text_limit['password'] %}
+              <span class="invalid-feedback">パスワードは{{ exceeds_text_limit['password'] }}文字以上で入力してください</span>
+            {% else %}
+              <span class="invalid-feedback">項目を入力してください</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row mb-5">
+          <label for="confirm-password" class="col-sm-3 col-form-label">パスワード<small>（確認）</small></label>
+          <div class="col-sm-9">
+            <input type="password" maxlength="100" name="password2" value="{{password2}}" class="form-control {{is_valid['password2']}}" id="confirm-password" required>
+            {% if is_mismatched %}
+              <span class="invalid-feedback">パスワードが一致しません</span>
+            {% else %}
+              <span class="invalid-feedback">項目を入力してください</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- 会員規約はsignup_termsに記載 -->
+        <div class="card terms mb-4">
+          <div class="card-body">
+            {%block terms%}{%endblock%}
+          </div>
+        </div>
+
+        <!-- 表示モード切替用 -->
+        <input type="hidden" name="mode" value="confirm">
+        
+      </form>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="me-3">
+      <label class="checkbox-label" role="button">
+        <input type="checkbox" id="terms-check" role="button"> <small>利用規約に同意します</small>
+      </label>
+    </div>
+    <button type="submit" form="signup-form" class="btn btn-sd-secondary ms-3" id="signup-btn" disabled>入力内容確認</button>
+  </div>
+
+</div>
+{%endblock%}
+
+{%block script%}
+<script src="{{url_for('static', filename='js/jquery.pwdMeasure.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/password.js')}}"></script>
+<script src="{{url_for('static', filename='js/signup.js')}}"></script>
+{%endblock%}

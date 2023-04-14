@@ -1,0 +1,94 @@
+<!---------------------------------
+　基本テンプレート（ヘッダー・フッター）
+ ---------------------------------->
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" sizes="any">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alkatra&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/color-theme.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {%block stylesheet%}{%endblock%}
+  <title>ShutterDiary</title>
+</head>
+
+<body>
+
+  <!-- 固定ヘッダー -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg bg-sd-light">
+      <div class="container">
+        <!-- ロゴ -->
+        <a href="/" class="text-sd-secondary" id="header-logo">Shutter<i class="bi bi-camera"></i>Diary</a>
+        <!-- ハンバーガーアイコン（スマホ・タブレットで表示） -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- ヘッダーナビ -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- ログイン時はユーザー名とパーソナルメニュー表示 -->
+            {% if current_user.is_authenticated %}
+              <li class="nav-item dropdown ms-lg-4">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <span>ログイン中のユーザー</span>
+                  {{ current_user.username }}
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item border-bottom py-2 text-sd-secondary fw-bold" href="{{ url_for('create') }}"><i class="bi bi-pencil-square me-3"></i>記事の作成</a></li>
+                  <li><a class="dropdown-item border-bottom py-2 text-sd-secondary fw-bold" href="{{ url_for('user', user_id=current_user.id) }}"><i class="bi bi-person-fill me-3"></i>ユーザーページ</a></li>
+                  <li><a class="dropdown-item border-bottom py-2 text-sd-secondary fw-bold" href="{{ url_for('account') }}"><i class="bi bi-gear-fill me-3"></i>アカウント設定</a></li>
+                  <li><a class="dropdown-item border-bottom py-2 text-sd-secondary fw-bold" href="{{ url_for('help') }}"><i class="bi bi-question-circle me-3"></i>ヘルプ</a></li>
+                  <li><a class="dropdown-item py-2 text-sd-secondary fw-bold" href="{{url_for('logout')}}"><i class="bi bi-box-arrow-left me-3"></i>ログアウト</a></li>
+                </ul>
+              </li>
+            <!-- ログアウト時はログインボタン表示 -->
+            {% else %}
+            <li class="nav-item p-2 ms-lg-5">
+              <a class="nav-link" href="{{url_for('login')}}"><i class="bi bi-box-arrow-in-right me-1 align-middle"></i>LOGIN</a>
+            </li>
+            <li class="nav-item p-2 ms-lg-2">
+              <a class="nav-link" href="{{ url_for('help') }}"><i class="bi bi-question-circle me-1 align-middle"></i>HELP</a>
+            </li>
+            {% endif %}
+          </ul>
+          <!-- 検索フォーム -->
+          <form action="{{ url_for('search') }}" method="get" class="d-flex" id="header-search" role="search">
+            <input class="form-control border-1" name="keywords" value="{{keywords}}" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn text-sd-secondary pe-4" type="submit"><i class="bi bi-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main>
+    {%block content%}{%endblock%}
+  </main>
+
+  <!-- コピーライト -->
+  <footer class="bg-sd-light text-center text-sd-secondary footer">&copy; ShutterDiary</footer>
+
+  <script
+  src="https://code.jquery.com/jquery-3.6.3.min.js"
+  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  {%block script%}{%endblock%}
+</body>
+
+</html>

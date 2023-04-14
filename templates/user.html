@@ -1,0 +1,88 @@
+<!---------------------------------
+　ユーザー画面
+ ---------------------------------->
+
+{%extends 'basic_template.html' %}
+{%block content%}
+
+<!-- 投稿ユーザー情報 -->
+<div class="bg-sd-secondary w-100">
+  <div class="container">
+    <div class="row justify-content-center py-3">
+      <div class="col col-lg-6 d-flex">
+        <div class="me-4">
+          {% if avatar %}
+            <div class="avatar-circle"><img src="{{ avatar }}" width="100" height="100"></div>
+          {% else %}
+            <div id="avatar-preview" class="avatar-circle avatar-placeholder"></div>
+          {% endif %}
+        </div>
+        <div class="flex-grow-1" id="poster-profile">
+          <p class="fs-3 text-sd-light text-break">{{ poster }}</p>
+          {% if profile %}
+            <p clsas="fs-1 text-sd-dark text-break">{{ profile }}</p>
+          {% else %}
+            <p clsas="fs-1 text-sd-dark text-break">プロフィールはありません</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- メイン部分 -->
+<section class="mt-5">
+  <div class="container">
+    <div class="row px-1">
+      {% if pages.total %}
+        {% for post in pages.items %}
+          <div class="col-6 col-md-4 col-lg-3 g-2 g-md-3 g-lg-4">
+            <a href="{{ url_for('view', post_id=post.id) }}" class="card-link shadow-sm">
+              <div class="card h-100 list-card">
+                {% if post.thumbnail_filename %}
+                  <img src="../static/user_thumbnails/{{post.thumbnail_filename}}" class="card-img-top">
+                {% endif %}
+                <div class="card-body">
+                  {% if post.title %}
+                    <h6 class="card-title text-sd-secondary m-0">{{post.title}}</h6>
+                  {% else %}
+                    <h6 class="card-title m-0 fw-normal text-sd-secondary">（タイトルなし）</h6>
+                  {% endif %}
+                  {% if post.body %}
+                    <p class="card-text mt-1">{{post.body}}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+        <!-- ページネーション -->
+        <nav id="pagination" class="mt-5">
+          <ul class="pagination justify-content-center">
+              {% for page in pages.iter_pages() %}
+              {% if page %}
+                {% if page != pages.page %}
+                    <li class="page-item"><a class="page-link" href="{{user_id}}?page={{page}}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link">{{ page }}</a></li>
+                {% endif %}
+              {% else %}
+                <span class="pagination-filler"> ・・・ </span>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
+      {% else %}
+        <div>
+          <p class="text-center mt-5">
+            <i class="bi bi-question-circle fs-1"></i><br>
+            記事がありません。
+          </p>
+          <p class="text-center mt-5"><a class="btn btn-sd-secondary" href="{{url_for('index')}}" role="button">TOPページに戻る</a></p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{%endblock%}
