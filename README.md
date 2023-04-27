@@ -1,8 +1,12 @@
-## ShutterDiary
+# ShutterDiary
+
+<br>
 
 『ShutterDiary』は写真を気軽に公開・共有できるブログアプリです。
 
 PythonのWebアプリケーションフレームワーク、Flaskで制作されています。
+
+<br>
 
 主な機能は下記の通りです。
 
@@ -20,7 +24,7 @@ PythonのWebアプリケーションフレームワーク、Flaskで制作され
 
 https://unsplash.com/
 
----
+<br>
 
 ### 使用しているフレームワーク・ライブラリ
 
@@ -37,7 +41,7 @@ https://unsplash.com/
 - CSS
     - Bootstrap
 
----
+<br>
 
 ### ローカルでの実行方法
 1. ShutterDiaryフォルダの直下に仮想環境を構築します。
@@ -58,14 +62,22 @@ https://unsplash.com/
     - Windows
         >set FLASK_APP=flask_app  
         >flask run
+        
+<br>
 
 ---
 
-## ShutterDiary
+<br>
+
+# ShutterDiary
+
+<br>
 
 _ShutterDiary_ is a blog app where you can easily post and share your photos.
 
 This app is made with Flask, a web application flamework for Python.
+
+<br>
 
 The main functions are as follows:
 
@@ -83,9 +95,9 @@ All images are copyright to their respective owners.
 
 https://unsplash.com/
 
----
+<br>
 
-## Used Frameworkds and Libraries
+### Used Frameworkds and Libraries
 
 - Python
     - Flask
@@ -100,9 +112,9 @@ https://unsplash.com/
 - CSS
     - Bootstrap
 
----
+<br>
 
-## How to run locally
+### How to run locally
 1. Create an virtual enviroment directly under ShutterDiary folder.
     > python -m venv .venv 
 
